@@ -1,20 +1,74 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: great-books
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: great-books-ui
+  name: great-books-deployment
   namespace: great-books
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: great-books-ui
+      app: great-books
   template:
     metadata:
       labels:
-        app: great-books-ui
+        app: great-books
     spec:
       containers:
-        - name: great-books-ui
+        - name: great-books
           image: samwilk18/great-books:latest
           ports:
             - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: great-books-service
+  namespace: great-books
+spec:
+  selector:
+    app: great-books
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: great-books-api
+  namespace: great-books
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: great-books-api
+  template:
+    metadata:
+      labels:
+        app: great-books-api
+    spec:
+      containers:
+        - name: great-books-api
+          image: samwilk18/great-books-api:latest
+          ports:
+            - containerPort: 4000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: great-books-api-service
+  namespace: great-books
+spec:
+  selector:
+    app: great-books-api
+  ports:
+    - port: 4000
+      targetPort: 4000
+  type: ClusterIP
