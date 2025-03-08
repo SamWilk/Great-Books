@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  great-books-ui:
+    build:
+      context: ./Great-Books-UI
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80" # External:Internal
+    networks:
+      - books-net
+  great-books-api:
+    build:
+      context: ./Books-API
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000" # External:Internal
+    networks:
+      - books-net
+
+networks:
+  books-net:
+    driver: bridge
