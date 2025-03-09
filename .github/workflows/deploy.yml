@@ -15,6 +15,7 @@ jobs:
         with:
           node-version: 18
       - run: |
+          cd Great-Books-UI
           npm ci
           npm run build
 
