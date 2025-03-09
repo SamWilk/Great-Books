@@ -38,6 +38,7 @@ jobs:
         with:
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/great-books:latest
+          context: ./Great-Books-UI
 
   build-docker-api:
     runs-on: ubuntu-latest
