@@ -33,6 +33,9 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
@@ -53,6 +56,9 @@ jobs:
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
       - name: Build and push
         uses: docker/build-push-action@v6
