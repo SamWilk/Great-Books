@@ -14,6 +14,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "4000:4000" # External:Internal
+    env_file: ./Books-API/.env
     networks:
       - books-net
   mongodb:
