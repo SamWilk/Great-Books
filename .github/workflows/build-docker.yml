@@ -1,4 +1,4 @@
-name: Deploy
+name: Build Docker Images Only
 
 on:
   workflow_dispatch:
