@@ -16,6 +16,18 @@ services:
       - "4000:4000" # External:Internal
     networks:
       - books-net
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_container
+    restart: always
+    ports:
+      - "27017:27017"
+    env_file: .env
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
 
 networks:
   books-net:

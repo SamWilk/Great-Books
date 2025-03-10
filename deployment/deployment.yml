@@ -24,6 +24,13 @@ spec:
           image: samwilk18/great-books:latest
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
 ---
 apiVersion: v1
 kind: Service
@@ -57,8 +64,21 @@ spec:
       containers:
         - name: great-books-api
           image: samwilk18/great-books-api:latest
+          env:
+            - name: MONGO_CONNECTIONSTRING
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-connection-string
+                  key: DB_PASSWORD
           ports:
             - containerPort: 4000
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
 ---
 apiVersion: v1
 kind: Service

@@ -2,10 +2,17 @@ GET http://localhost:80/api/
 
 ###
 
-GET http://localhost:80/api/users
-
-###
-
 GET http://localhost:80/api/getUser?UserName=JohnDoe
 
 ###
+
+POST http://localhost:80/api/createUser
+Content-Type: application/json
+
+{
+    "UserName": "JohnDoe"
+}
+
+###
+
+GET http://localhost:80/api/getBooks
