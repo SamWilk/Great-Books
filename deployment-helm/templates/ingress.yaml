@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.ingress.name }}
+  namespace: {{ .Values.namespace }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: {{ .Values.ingress.apiPath }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.api.name }}-service
+                port:
+                  number: {{ .Values.api.servicePort }}
+          - path: {{ .Values.ingress.rootPath }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.app.name }}-service
+                port:
+                  number: {{ .Values.app.servicePort }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-configuration
+  namespace: ingress-nginx
+data:
+  http-snippet: |
+    types {
+      application/javascript js;
+      text/css css;
+    }
+
