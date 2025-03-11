@@ -25,15 +25,4 @@ spec:
                 port:
                   number: {{ .Values.app.servicePort }}
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: nginx-configuration
-  namespace: ingress-nginx
-data:
-  http-snippet: |
-    types {
-      application/javascript js;
-      text/css css;
-    }
 
