@@ -1,7 +1,7 @@
 @UserName = SamWilk
 @Email = SamWilk18@gmail.com
 @Password = TestPassword
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Y2UxZmM4MThiMDdlNDVhNTM2Y2U3ZSIsIlVzZXJOYW1lIjoiU2FtV2lsayIsImlhdCI6MTc0MTU2MzQ4MywiZXhwIjoxNzQyMTY4MjgzfQ.sXa77jDAUPmksCDWeonbS_Vxxs9SucUUkVIoly9Mg3M
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Y2Y5MzMzZTA1MmE2MjJiYjBkNTM3MSIsIlVzZXJOYW1lIjoiU2FtV2lsayIsImlhdCI6MTc0MTY1Njg4NywiZXhwIjoxNzQyMjYxNjg3fQ.P7iKZckfhX_RfudPMRIgKo_TDfh-8qMccXt9ZNANvNo
 
 
 GET http://localhost:4000/api/

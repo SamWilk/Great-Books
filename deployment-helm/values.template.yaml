@@ -1,0 +1,41 @@
+namespace:
+
+app:
+  name: 
+  replicas: 
+  image:
+  containerPort: 
+  servicePort: 
+  resources:
+    requests:
+      memory: 
+      cpu: 
+    limits:
+      memory: 
+      cpu: 
+
+api:
+  name: 
+  replicas: 1
+  image: 
+  containerPort:
+  servicePort: 
+  mongoSecret:
+    name: 
+    key: 
+  resources:
+    requests:
+      memory:
+      cpu:
+    limits:
+      memory: 
+      cpu:
+
+ingress:
+  name: 
+  host: 
+  apiPath: 
+  rootPath: 
+
+secret:
+  mongoconnectionstring: 

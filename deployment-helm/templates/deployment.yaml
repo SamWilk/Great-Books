@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.namespace }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+    spec:
+      containers:
+        - name: {{ .Values.app.name }}
+          image: "{{ .Values.app.image }}"
+          ports:
+            - containerPort: {{ .Values.app.containerPort }}
+          resources:
+            requests:
+              memory: "{{ .Values.app.resources.requests.memory }}"
+              cpu: "{{ .Values.app.resources.requests.cpu }}"
+            limits:
+              memory: "{{ .Values.app.resources.limits.memory }}"
+              cpu: "{{ .Values.app.resources.limits.cpu }}"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.api.name }}-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.api.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.api.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.api.name }}
+    spec:
+      containers:
+        - name: {{ .Values.api.name }}
+          image: "{{ .Values.api.image }}"
+          env:
+            - name: MONGODB_CONNECTIONSTRING
+              valueFrom:
+                  secretKeyRef:
+                    name: {{ .Values.api.name }}-secret
+                    key: MONGODB_CONNECTIONSTRING
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                    name: {{ .Values.api.name }}-secret
+                    key: JWT_SECRET
+          ports:
+            - containerPort: {{ .Values.api.containerPort }}
+          resources:
+            requests:
+              memory: "{{ .Values.api.resources.requests.memory }}"
+              cpu: "{{ .Values.api.resources.requests.cpu }}"
+            limits:
+              memory: "{{ .Values.api.resources.limits.memory }}"
+              cpu: "{{ .Values.api.resources.limits.cpu }}"
+
