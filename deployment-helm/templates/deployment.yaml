@@ -55,6 +55,11 @@ spec:
                   secretKeyRef:
                     name: {{ .Values.api.name }}-secret
                     key: MONGODB_CONNECTIONSTRING
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                    name: {{ .Values.api.name }}-secret
+                    key: JWT_SECRET
           ports:
             - containerPort: {{ .Values.api.containerPort }}
           resources:
