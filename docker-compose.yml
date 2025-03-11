@@ -1,22 +1,29 @@
 version: "3.8"
+
 services:
   great-books-ui:
     build:
       context: ./Great-Books-UI
       dockerfile: Dockerfile
     ports:
-      - "3000:80" # External:Internal
+      - "3000:80"  # External:Internal
     networks:
       - books-net
+    depends_on:
+      - great-books-api
+
   great-books-api:
     build:
       context: ./Books-API
-      dockerfile: Dockerfile
+      dockerfile: Dev.Dockerfile
     ports:
-      - "4000:4000" # External:Internal
+      - "4000:4000"  # External:Internal
     env_file: ./Books-API/.env
     networks:
       - books-net
+    depends_on:
+      - mongodb
+
   mongodb:
     image: mongo:latest
     container_name: mongodb_container
@@ -24,6 +31,8 @@ services:
     ports:
       - "27017:27017"
     env_file: .env
+    networks:
+      - books-net
     volumes:
       - mongo_data:/data/db
 

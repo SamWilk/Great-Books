@@ -1,11 +1,19 @@
 require("dotenv").config();
-const { MongoClient } = require("mongodb");
+const { MongoClient, ServerApiVersion } = require("mongodb");
 
 function CreateDBClient() {
-  const uri = process.env.MONGODB_CONNECTIONSTRING;
+    var uri;
+    if(process.env.NODE_ENV != undefined && process.env.NODE_ENV == "local"){
+        uri = process.env.MONGODB_COMPOSE;
+    }else{
+        uri = process.env.MONGODB_CONNECTIONSTRING;
+    }
   const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+   serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
   });
 
   return client;

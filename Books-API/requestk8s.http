@@ -1,18 +1,39 @@
-GET http://localhost:80/api/
+@UserName = SamWilk
+@Email = SamWilk18@gmail.com
+@Password = TestPassword
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Y2UxZmM4MThiMDdlNDVhNTM2Y2U3ZSIsIlVzZXJOYW1lIjoiU2FtV2lsayIsImlhdCI6MTc0MTU2MzQ4MywiZXhwIjoxNzQyMTY4MjgzfQ.sXa77jDAUPmksCDWeonbS_Vxxs9SucUUkVIoly9Mg3M
+@port = 80
+
+GET http://localhost:{{port}}/api/
 
 ###
 
-GET http://localhost:80/api/getUser?UserName=JohnDoe
-
-###
-
-POST http://localhost:80/api/createUser
+GET http://localhost:{{port}}/api/getUser
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-    "UserName": "JohnDoe"
+    "UserName": "{{UserName}}"
 }
 
 ###
 
-GET http://localhost:80/api/getBooks
+POST http://localhost:{{port}}/api/createUser
+Content-Type: application/json
+
+{
+    "UserName": "{{UserName}}",
+    "Email": "{{Email}}",
+    "Password": "{{Password}}"
+}
+
+###
+
+GET http://localhost:{{port}}/api/login
+Content-Type: application/json
+
+{
+    "UserName": "{{UserName}}",
+    "Email": "{{Email}}",
+    "Password": "{{Password}}"
+}
