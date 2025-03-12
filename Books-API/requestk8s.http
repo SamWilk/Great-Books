@@ -1,7 +1,7 @@
 @UserName = SamWilk
 @Email = SamWilk18@gmail.com
 @Password = TestPassword
-@token = eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDBhYTA1NTBiNjI1YzExMWJjYWJlYiIsIlVzZXJOYW1lIjoiU2FtV2lsayIsImlhdCI6MTc0MTcyODkwNiwiZXhwIjoxNzQyMzMzNzA2fQ.yPdDKAo_nfQeG8O_zmP-hT6RC4glhvTWAJ_H0whV5yk
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDBhYTA1NTBiNjI1YzExMWJjYWJlYiIsIlVzZXJOYW1lIjoiU2FtV2lsayIsImlhdCI6MTc0MTcyODkyOSwiZXhwIjoxNzQyMzMzNzI5fQ.gByIoROj3lcIuvbFNtmcrsvMbaZe2NKp07nzKdI7HU4
 @port = 80
 
 GET http://localhost:{{port}}/api/

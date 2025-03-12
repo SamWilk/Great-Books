@@ -1,13 +1,11 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const { v4 } = require("uuid");
+const axios = require("axios")
 require("dotenv").config();
 
 const router = express.Router();
 
-router.get("/api/getBooks", (req, res) => {
-  res.send("Found Books");
+router.get("/api/getBooks:title", async (req, res) => {
+  res.send("Still working on this atm")
 });
 
 module.exports = router;
