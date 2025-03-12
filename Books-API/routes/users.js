@@ -17,6 +17,10 @@ router.get("/api/getUser", verifyToken, async (req, res) => {
   }
 });
 
+router.get("/api/auth/checkMe", verifyToken, async (req, res) => {
+  res.send("Happy Reading");
+});
+
 router.post("/api/createUser", async (req, res) => {
   try {
     const User = req.body;

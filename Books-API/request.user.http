@@ -8,6 +8,12 @@ GET http://localhost:4000/api/
 
 ###
 
+GET http://localhost:4000/api/auth/checkMe
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
 GET http://localhost:4000/api/getUser
 Content-Type: application/json
 Authorization: Bearer {{token}}
