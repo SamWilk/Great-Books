@@ -1,20 +1,29 @@
 version: "3.8"
 
 services:
+  great-books-api:
+    build:
+      context: ../Books-API
+      dockerfile: Dev.Dockerfile
+    ports:
+      - "4000:4000"  # External:Internal
+    env_file: ../Books-API/.env
+    networks:
+      - books-net
+    depends_on:
+      - mongodb
+
   mongodb:
     image: mongo:latest
-    container_name: mongodb_container
+    container_name: mongodb_local
     restart: always
     ports:
       - "27017:27017"
     env_file: ../.env
+    networks:
+      - books-net
     volumes:
       - mongo_data:/data/db
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.runCommand('ping').ok"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
 
 volumes:
   mongo_data:

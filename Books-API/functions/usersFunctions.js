@@ -38,10 +38,15 @@ async function insertUser(User) {
       Email: User.Email,
       Password: await hashPassword(User.Password),
     };
-    await userCollection.insertOne(query);
-
+    const obj = await userCollection.insertOne(query);
     await client.close();
-    return true;
+
+    const userObj = {
+      id: obj.insertedId.toString(),
+      UserName: User.UserName,
+      Email: User.Email,
+    };
+    return userObj;
   } catch (error) {
     console.error(error);
     await client.close();
