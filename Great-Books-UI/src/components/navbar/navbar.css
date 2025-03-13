@@ -1,0 +1,14 @@
+div.navBar {
+  margin: 0;
+  display: flex;
+  justify-content: space-evenly;
+  place-items: center;
+  min-width: 100vw;
+}
+
+div.ButtonBar {
+  display: flex;
+  flex-direction: row;
+  min-width: 60%;
+  justify-content: space-around;
+}

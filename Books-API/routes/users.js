@@ -8,30 +8,45 @@ require("dotenv").config();
 
 const router = express.Router();
 
-router.get("/api/getUser", verifyToken, async (req, res) => {
+router.post("/api/getUser", verifyToken, async (req, res) => {
   const user = await getUser(req.body.UserName);
   if (user) {
-    res.send(`Found: ${user.UserName}`).status(200);
+    res.json({ UserName: user.UserName, Email: user.Email }).status(200);
   } else {
     res.status(404).send("Cannot find user");
   }
 });
 
 router.get("/api/auth/checkMe", verifyToken, async (req, res) => {
+  console.log("Checking Token");
   res.send("Happy Reading");
 });
 
 router.post("/api/createUser", async (req, res) => {
   try {
     const User = req.body;
-    const wasInserted = await insertUser(User);
-    if (wasInserted == true) {
-      res.status(201).send(`User Created: ${User.UserName}`);
+    const user = await insertUser(User);
+    if (user) {
+      const token = jwt.sign(
+        { id: user.id, UserName: user.UserName },
+        process.env.JWT_SECRET,
+        { expiresIn: "7d" }
+      );
+
+      res.status(200).json({
+        accessToken: token,
+        User: {
+          UserName: user.UserName,
+          Email: user.Email,
+        },
+      });
     } else {
-      res.status(409).send("User was not created, UserName was not unique");
+      res
+        .status(409)
+        .json({ Error: "User was not created, UserName was not unique" });
     }
   } catch (error) {
-    res.send(`Error Creating User: ${error}`).status(500);
+    res.json({ Error: `Error Creating User: ${error}` }).status(500);
   }
 });
 
@@ -39,7 +54,7 @@ router.delete("/api/deleteUser", async (req, res) => {
   res.status(200).send("Endpoint not set up atm");
 });
 
-router.get("/api/login", async (req, res) => {
+router.post("/api/login", async (req, res) => {
   const User = req.body;
 
   const loginUser = await getUser(User.UserName);
@@ -67,11 +82,11 @@ router.get("/api/login", async (req, res) => {
       });
     } else {
       console.log("Invalid Password");
-      res.status(401).send("Invalid Password");
+      res.status(401).json({ Error: "Invalid Password" });
     }
   } else {
     console.log(`Invalid Username: ${User.UserName}`);
-    res.status(401).send("Invalid UserName");
+    res.status(401).json({ Error: "Invalid UserName" });
   }
 });
 
