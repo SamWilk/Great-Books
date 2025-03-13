@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import useLogin from "./login";
 import "./login.css";
 import CustomButton from "../../components/customButton/customButton";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
   userName: Yup.string()
@@ -26,7 +27,8 @@ const validationSchema = Yup.object({
 });
 
 const LoginForm = () => {
-  const { loginUser, error } = useLogin();
+  const { loginUser, error, success } = useLogin();
+  const redirect = useNavigate();
   return (
     <Formik
       initialValues={{ userName: "", password: "" }}
@@ -37,7 +39,11 @@ const LoginForm = () => {
         setSubmitting(true);
         await loginUser(values.userName, values.password);
         setSubmitting(false);
-        console.log(error);
+        if (success) {
+          redirect("/");
+        } else {
+          console.log(error);
+        }
       }}
     >
       {({ isSubmitting }) => (

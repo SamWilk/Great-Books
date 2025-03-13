@@ -7,11 +7,13 @@ const useLogin = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [success, setSucess] = useState(null);
 
   const loginUser = async (username, password) => {
     const urlObj = getURLConfig();
     setLoading(true);
     setError(null);
+    setSucess(null);
 
     try {
       const response = await fetch(`${urlObj.APIUrl}/login`, {
@@ -36,6 +38,7 @@ const useLogin = () => {
             token: data.accessToken,
           })
         );
+        setSucess(true);
       } else {
         throw new Error("Invalid response or missing access token");
       }
@@ -47,7 +50,7 @@ const useLogin = () => {
     }
   };
 
-  return { loginUser, loading, error };
+  return { loginUser, loading, error, success };
 };
 
 export default useLogin;
