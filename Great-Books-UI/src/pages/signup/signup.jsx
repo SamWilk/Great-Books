@@ -1,9 +1,11 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import useLogin from "../login/login";
 import "./signup.css";
 import CustomButton from "../../components/customButton/customButton";
 import useSignUp from "./signup";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("Email is Required"),
@@ -30,6 +32,15 @@ const validationSchema = Yup.object({
 
 const SignupForm = () => {
   const { signUpUser, error } = useSignUp();
+  const redirect = useNavigate();
+  const authStatus = useSelector((state) => state.auth.isAuthenticated);
+
+  useEffect(() => {
+    if (authStatus) {
+      redirect("/");
+    }
+  }, [authStatus, redirect]);
+
   return (
     <Formik
       initialValues={{ userName: "", password: "" }}

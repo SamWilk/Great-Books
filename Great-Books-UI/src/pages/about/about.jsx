@@ -1,7 +1,7 @@
 import "./about.css";
 
 const About = () => {
-  return <>About Bookish</>;
+  return <>About Page</>;
 };
 
 export default About;

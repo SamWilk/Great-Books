@@ -17,6 +17,7 @@ export const checkAuth = createAsyncThunk(
       if (!userInfo) throw new Error("No User Info Found");
       const parsedUser = JSON.parse(userInfo);
 
+      console.log("Parsed User: ", parsedUser);
       const response = await fetch(`${urlObj.APIUrl}/getUser`, {
         method: "POST",
         headers: {
@@ -27,9 +28,11 @@ export const checkAuth = createAsyncThunk(
           UserName: parsedUser.UserName,
         }),
       });
+      console.log("Parsed User: ", await response.json());
 
       if (!response.ok) throw new Error("Invalid User or Token");
       const user = await response.json();
+      console.log("User from Slice: ", JSON.stringify(user));
       return user;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -80,6 +83,7 @@ const authSlice = createSlice({
         state.token = null;
         state.error = action.payload;
         localStorage.removeItem("token");
+        localStorage.removeItem("UserInfo");
       });
   },
 });
