@@ -9,3 +9,7 @@ GET http://localhost:4000/api/
 ###
 
 GET http://localhost:4000/api/getBooks:{{BookTitle}}
+
+###
+
+GET http://localhost:4000/api/findBookByTitle:{{BookTitle}}
