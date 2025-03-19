@@ -43,18 +43,52 @@ async function findBookByTitle(bookTitle) {
   }
 }
 
+async function getUsersBooks(userName) {
+  try {
+    await client.connect();
+    console.log("Connected to MongoDB!");
+
+    const database = client.db("greatbooks");
+    const bookCollection = await database.collection("UserBooks");
+
+    const bookQuery = { UserName: bookTitle, AuthorID: id };
+    const book = await bookCollection.findOne({ query });
+
+    await client.close();
+    return true;
+  } catch (error) {
+    console.error(error);
+    await client.close();
+    throw error;
+  }
+}
+
 async function getBookFromOpenLibraryByTitle(bookTitle) {
   if (!bookTitle) {
     return undefined;
   }
   const pasredTitle = bookTitle.split(" ").join("+");
-  const Url = appendTitleToUrl(pasredTitle, 1, 5);
+  const Url = appendTitleToUrl(pasredTitle, 1, 5, 1);
 
-  console.log(Url);
   try {
     const response = await fetch(Url);
     const body = await response.json();
+    return body;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
+async function getBookFromOpenLibraryByTitleWithOffset(bookTitle, offset) {
+  if (!bookTitle) {
+    return undefined;
+  }
+  const pasredTitle = bookTitle.split(" ").join("+");
+  const Url = appendTitleToUrl(pasredTitle, 1, 5, offset);
+
+  try {
+    const response = await fetch(Url);
+    const body = await response.json();
     return body;
   } catch (error) {
     console.log(error);
@@ -63,4 +97,5 @@ async function getBookFromOpenLibraryByTitle(bookTitle) {
 
 module.exports = {
   getBookFromOpenLibraryByTitle,
+  getBookFromOpenLibraryByTitleWithOffset,
 };
