@@ -2,8 +2,8 @@ const getURLConfig = () => {
   switch (import.meta.env.MODE) {
     case "production":
       return {
-        SiteUrl: "",
-        APIUrl: "",
+        SiteUrl: "http://localhost:80/",
+        APIUrl: "http://localhost:80/api",
       };
     case "development":
       return {

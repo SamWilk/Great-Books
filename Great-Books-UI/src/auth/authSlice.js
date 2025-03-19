@@ -40,9 +40,9 @@ export const checkAuth = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: null,
-    token: localStorage.getItem("token") || null,
-    isAuthenticated: false,
+    user: JSON.parse(localStorage.getItem("UserInfo")) ?? null,
+    token: localStorage.getItem("token") ?? null,
+    isAuthenticated: !!localStorage.getItem("token"), // True if token exists
     status: "idle", // idle | loading | success | failed
     error: null,
   },
@@ -80,6 +80,7 @@ const authSlice = createSlice({
         state.token = null;
         state.error = action.payload;
         localStorage.removeItem("token");
+        localStorage.removeItem("UserInfo");
       });
   },
 });
