@@ -11,7 +11,9 @@ const router = express.Router();
 router.post("/api/getUser", verifyToken, async (req, res) => {
   const user = await getUser(req.body.UserName);
   if (user) {
-    res.json({ UserName: user.UserName, Email: user.Email }).status(200);
+    res
+      .json({ UserName: user.UserName, Email: user.Email, id: user._id })
+      .status(200);
   } else {
     res.status(404).send("Cannot find user");
   }
@@ -38,6 +40,7 @@ router.post("/api/createUser", async (req, res) => {
         User: {
           UserName: user.UserName,
           Email: user.Email,
+          id: user.id,
         },
       });
     } else {
@@ -78,6 +81,7 @@ router.post("/api/login", async (req, res) => {
         User: {
           UserName: loginUser.UserName,
           Email: loginUser.Email,
+          id: loginUser._id,
         },
       });
     } else {

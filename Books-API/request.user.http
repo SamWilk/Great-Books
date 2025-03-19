@@ -1,7 +1,7 @@
 @UserName = Beanfdfds23rfdasfds
 @Email = bean@gmail.com
 @Password = NewPassword0!!
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Y2Y5MzMzZTA1MmE2MjJiYjBkNTM3MSIsIlVzZXJOYW1lIjoiU2FtV2lsayIsImlhdCI6MTc0MTY1Njg4NywiZXhwIjoxNzQyMjYxNjg3fQ.P7iKZckfhX_RfudPMRIgKo_TDfh-8qMccXt9ZNANvNo
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGFiMWYxZDIzOTI1NTIyZGFmYTBlZiIsIlVzZXJOYW1lIjoiQmVhbmZkZmRzMjNyZmRhc2ZkcyIsImlhdCI6MTc0MjM4NTY1MSwiZXhwIjoxNzQyOTkwNDUxfQ.H6J-RtDXuHIc2rqyUtLMnCW8OOqiz49dtyOoAeN1q8s
 
 
 GET http://localhost:4000/api/

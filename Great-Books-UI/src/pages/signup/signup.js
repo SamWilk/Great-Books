@@ -32,7 +32,11 @@ const useSignUp = () => {
       if (data.accessToken) {
         dispatch(
           login({
-            user: { UserName: data.User.UserName, Email: data.User.Email },
+            user: {
+              UserName: data.User.UserName,
+              Email: data.User.Email,
+              id: data.User.id,
+            },
             token: data.accessToken,
           })
         );
