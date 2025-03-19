@@ -1,16 +1,17 @@
 const express = require("express");
 const { getBookFromOpenLibraryByTitle } = require("../functions/bookFunctions");
+const verifyToken = require("../middleware/authMiddleWare");
 require("dotenv").config();
 
 const router = express.Router();
 
-router.get("/api/getBooks:UserName", async (req, res) => {
+router.get("/api/getBooks:UserName", verifyToken, async (req, res) => {
   const userName = req.params.UserName.replace(":", "");
   console.log("UserName: ", userName);
   res.json({ UsersBook: userName });
 });
 
-router.get("/api/findBookByTitle:bookTitle", async (req, res) => {
+router.get("/api/findBookByTitle:bookTitle", verifyToken, async (req, res) => {
   const bookTitle = req.params.bookTitle;
   if (!bookTitle) {
     res.status(404).json({ Message: "Title must be given" });
