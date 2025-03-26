@@ -9,6 +9,7 @@ import Navbar from "./components/navbar/navbar.jsx";
 import Login from "./pages/login/login.jsx";
 import About from "./pages/about/about.jsx";
 import Signup from "./pages/signup/signup.jsx";
+import Search from "./pages/search/search.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/search" element={<Search />} />
         </Routes>
       </Router>
     </Provider>
