@@ -3,6 +3,7 @@ import CustomButton from "../../components/customButton/customButton";
 import useBookSearch from "./searchBooks";
 import { useState } from "react";
 import * as Yup from "yup";
+import BookWrapper from "../../components/bookWrapper/bookWrapper";
 
 const validationSchema = Yup.object({
   bookTitle: Yup.string()
@@ -96,14 +97,16 @@ const Search = () => {
                         <div key={idx}>
                           {e.CoverID != undefined ? (
                             <>
-                              {e.Title}: {e.Author}
-                              <img
-                                key={idx}
-                                src={getCoverURL(e.CoverID)}
-                                alt="Book Cover"
-                                width={30}
-                                height={45}
-                              />{" "}
+                              <BookWrapper book={e}>
+                                {e.Title}: {e.Author}
+                                <img
+                                  key={idx}
+                                  src={getCoverURL(e.CoverID)}
+                                  alt="Book Cover"
+                                  width={30}
+                                  height={45}
+                                />
+                              </BookWrapper>
                             </>
                           ) : (
                             <></>

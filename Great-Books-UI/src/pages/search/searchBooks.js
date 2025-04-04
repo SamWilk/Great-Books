@@ -34,11 +34,13 @@ const createBookArray = (responseBody) => {
   responseBody.books.forEach((book) => {
     if (book.author_name != undefined) {
       const authorName = book.author_name[0];
+      const bookId = getBookId(book);
       bookArray.push({
         Title: book.title,
         Author: authorName,
         YearPublished: book.first_publish_year,
         CoverID: book.cover_i,
+        BookID: bookId,
       });
     }
   });
@@ -50,14 +52,22 @@ const createOnlyArray = (responseBody) => {
   responseBody.books.forEach((book) => {
     const authorName =
       book.author_name[0] != undefined ? book.author_name[0] : undefined;
+    const bookId = getBookId(book);
     bookArray.push({
       Title: book.title,
       Author: authorName,
       YearPublished: book.first_publish_year,
       CoverID: book.cover_i,
+      BookID: bookId,
     });
   });
   return bookArray;
+};
+
+const getBookId = (book) => {
+  if (book && book.key) {
+    return book.key.split("/")[2];
+  }
 };
 
 export default useBookSearch;
