@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { checkAuth, logout } from "../../auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./navbar.css";
 import CustomButton from "../customButton/customButton";
 
@@ -12,7 +12,7 @@ const SendToLogin = () => {
     navigate("/login");
   };
 
-  return <CustomButton OnClick={handleRedirect}>Login</CustomButton>;
+  return <CustomButton OnClick={handleRedirect} buttonTitle={"Login"} />;
 };
 
 const SendToSignUp = () => {
@@ -22,7 +22,7 @@ const SendToSignUp = () => {
     navigate("/signup");
   };
 
-  return <CustomButton OnClick={handleRedirect}>Sign Up</CustomButton>;
+  return <CustomButton OnClick={handleRedirect} buttonTitle={"Sign Up"} />;
 };
 
 const Logout = () => {
@@ -42,6 +42,7 @@ const Logout = () => {
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const authUser = useSelector((state) => state.auth.user);
   const authStatus = useSelector((state) => state.auth.status);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const isLoginPage = useLocation().pathname == "/login" ? true : false;
@@ -56,14 +57,31 @@ const Navbar = () => {
     <>
       <div className="navBar">
         Navbar
+        <div>
+          {isAuthenticated ? <div>Hello, {authUser.UserName}</div> : <></>}
+        </div>
         <div className="ButtonBar">
           <CustomButton
             OnClick={() => {
               navigate("/");
             }}
-          >
-            Home
-          </CustomButton>
+            buttonTitle={"Home"}
+          />
+
+          <CustomButton
+            OnClick={() => {
+              navigate("/search");
+            }}
+            buttonTitle={"Search"}
+          />
+
+          <CustomButton
+            OnClick={() => {
+              navigate("/about");
+            }}
+            buttonTitle={"About"}
+          />
+
           {isAuthenticated ? (
             <Logout />
           ) : isLoginPage ? (
@@ -71,13 +89,6 @@ const Navbar = () => {
           ) : (
             <SendToLogin />
           )}
-          <CustomButton
-            OnClick={() => {
-              navigate("/about");
-            }}
-          >
-            About
-          </CustomButton>
         </div>
       </div>
     </>

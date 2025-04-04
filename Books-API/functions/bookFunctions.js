@@ -63,28 +63,17 @@ async function getUsersBooks(userName) {
   }
 }
 
-async function getBookFromOpenLibraryByTitle(bookTitle) {
+async function getBookFromOpenLibraryByTitle({
+  bookTitle,
+  page,
+  limit,
+  offset,
+}) {
   if (!bookTitle) {
     return undefined;
   }
   const pasredTitle = bookTitle.split(" ").join("+");
-  const Url = appendTitleToUrl(pasredTitle, 1, 5, 1);
-
-  try {
-    const response = await fetch(Url);
-    const body = await response.json();
-    return body;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-async function getBookFromOpenLibraryByTitleWithOffset(bookTitle, offset) {
-  if (!bookTitle) {
-    return undefined;
-  }
-  const pasredTitle = bookTitle.split(" ").join("+");
-  const Url = appendTitleToUrl(pasredTitle, 1, 5, offset);
+  const Url = appendTitleToUrl(pasredTitle, page, limit, offset);
 
   try {
     const response = await fetch(Url);
@@ -97,5 +86,4 @@ async function getBookFromOpenLibraryByTitleWithOffset(bookTitle, offset) {
 
 module.exports = {
   getBookFromOpenLibraryByTitle,
-  getBookFromOpenLibraryByTitleWithOffset,
 };

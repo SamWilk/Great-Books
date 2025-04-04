@@ -11,15 +11,13 @@ router.get("/api/getBooks:UserName", verifyToken, async (req, res) => {
   res.json({ UsersBook: userName });
 });
 
-router.get("/api/findBookByTitle:bookTitle", verifyToken, async (req, res) => {
-  const bookTitle = req.params.bookTitle;
-  if (!bookTitle) {
+router.get("/api/findBookByTitle", async (req, res) => {
+  const searchParams = req.query;
+  if (!searchParams) {
     res.status(404).json({ Message: "Title must be given" });
   }
   try {
-    const bookList = await getBookFromOpenLibraryByTitle(
-      bookTitle.replace(":", "")
-    );
+    const bookList = await getBookFromOpenLibraryByTitle(searchParams);
     const resObj = {
       num_found: bookList.num_found,
       books: bookList.docs,
