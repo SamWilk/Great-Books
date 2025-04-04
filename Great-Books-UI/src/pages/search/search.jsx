@@ -149,39 +149,6 @@ const Search = () => {
     );
   };
 
-  const findDisplayItem = (searchType, item, idx) => {
-    switch (searchType) {
-      case "Books":
-        return item.CoverID !== undefined ? (
-          <>
-            {item.Title}: {item.Author}
-            <img
-              key={idx}
-              src={getCoverURL(item.CoverID)}
-              alt="Book Cover"
-              width={30}
-              height={45}
-            />
-          </>
-        ) : null;
-      case "Author":
-        return item.CoverID !== undefined ? (
-          <>
-            {item.Title}: {item.Author}
-            <img
-              key={idx}
-              src={getCoverURL(item.CoverID)}
-              alt="Book Cover"
-              width={30}
-              height={45}
-            />
-          </>
-        ) : null;
-      default:
-        return null;
-    }
-  };
-
   return (
     <>
       <div>
